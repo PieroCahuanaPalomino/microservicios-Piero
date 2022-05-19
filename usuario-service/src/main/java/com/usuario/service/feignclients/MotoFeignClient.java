@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  * @author USUARIO
  */
-//Nombre y URL del microservicio
-@FeignClient(name = "moto-service", url = "http://localhost:8003")
+//Nombre y URL del microservicio , url = "http://localhost:8003"
+@FeignClient(name = "moto-service")
 //Para acceder al ClienteFeign 
 @RequestMapping("/moto")
 public interface MotoFeignClient {
