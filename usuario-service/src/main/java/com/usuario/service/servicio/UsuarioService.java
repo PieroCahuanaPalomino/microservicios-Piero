@@ -74,27 +74,30 @@ public class UsuarioService {
     
     
     public Map<String,Object> getUsuarioAndVehiculos(int usuarioId){
-        Map<String,Object> resultado=new HashMap<>();
-        Usuario usuario=usuarioRepository.findById(usuarioId).orElse(null);
-        if(usuario==null){
-            resultado.put("Mensaje", "El resultado no existe");
-        }
-        resultado.put("Usuario", usuario);
-        
-        
-        List<Carro> carros=carroFeignClient.getCarros(usuarioId);
-        if(carros.isEmpty()){
-            resultado.put("Carros", "El usuario no tiene carros");
-        }else{
-            resultado.put("Motos",carros);
-        }
-        
-        List<Moto> motos=motoFeignClient.getMotos(usuarioId);
-        if(motos.isEmpty()){
-            resultado.put("Motos", "El usuario no tiene motos");
-        }else{
-            resultado.put("Motos",motos);
-        } 
-        return resultado;
+		Map<String,Object> resultado = new HashMap<>();
+		Usuario usuario = usuarioRepository.findById(usuarioId).orElse(null);
+		
+		if(usuario == null) {
+			resultado.put("Mensaje", "El usuario no existe");
+			return resultado;
+		}
+		
+		resultado.put("Usuario",usuario);
+		List<Carro> carros = carroFeignClient.getCarros(usuarioId);
+		if(carros.isEmpty()) {
+			resultado.put("Carros", "El usuario no tiene carros");
+		}
+		else {
+			resultado.put("Carros", carros);
+		}
+		
+		List<Moto> motos = motoFeignClient.getMotos(usuarioId);
+		if(motos.isEmpty()) {
+			resultado.put("Motos", "El usuario no tiene motos");
+		}		
+		else {
+			resultado.put("Motos", motos);
+		}
+		return resultado;
     }
 }
